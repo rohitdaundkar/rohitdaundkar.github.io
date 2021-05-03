@@ -41,21 +41,56 @@ button {
         padding: 25px;   
         background-color: lightblue;  
     }   
-</style>   
+</style>  
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+        function myFUN() {
+		var resultElement = document.getElementById('getResult1');
+  resultElement.innerHTML = '';
+  
+  axios.get('https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=410505&date=05-05-2021')
+    .then(function (response) {
+      resultElement.innerHTML = generateSuccessHTMLOutput(response);
+    })
+    .catch(function (error) {
+      resultElement.innerHTML = generateErrorHTMLOutput(error);
+    });   
+        }
+		
+		
+		function generateSuccessHTMLOutput(response) {
+  return  '<h4>Result</h4>' + 
+          '<h5>Status:</h5> ' + 
+          '<pre>' + response.status + ' ' + response.statusText + '</pre>' +
+          '<h5>Headers:</h5>' + 
+          '<pre>' + JSON.stringify(response.headers, null, '\t') + '</pre>' + 
+          '<h5>Data:</h5>' + 
+          '<pre>' + JSON.stringify(response.data, null, '\t') + '</pre>'; 
+}
+function generateErrorHTMLOutput(error) {
+  return  '<h4>Result</h4>' + 
+          '<h5>Message:</h5> ' + 
+          '<pre>' + error.message + '</pre>' +
+          '<h5>Status:</h5> ' + 
+          '<pre>' + error.response.status + ' ' + error.response.statusText + '</pre>' +
+          '<h5>Headers:</h5>' + 
+          '<pre>' + JSON.stringify(error.response.headers, null, '\t') + '</pre>' + 
+          '<h5>Data:</h5>' + 
+          '<pre>' + JSON.stringify(error.response.data, null, '\t') + '</pre>'; 
+}
+    </script> 
 </head>    
 <body>    
     <center> <h1> Student Login Form </h1> </center>   
-    <form>  
         <div class="container">   
             <label>Username : </label>   
             <input type="text" placeholder="Enter Username" name="username" required>  
             <label>Password : </label>   
             <input type="password" placeholder="Enter Password" name="password" required>  
-            <button type="submit">Login</button>   
-            <input type="checkbox" checked="checked"> Remember me   
-            <button type="button" class="cancelbtn"> Cancel</button>   
-            Forgot <a href="#"> password? </a>   
-        </div>   
-    </form>     
+            <button onclick="myFUN()">Result</button>   
+           
+        </div> 
+		<div  id="getResult1"></div>		
+    
 </body>     
 </html>  
