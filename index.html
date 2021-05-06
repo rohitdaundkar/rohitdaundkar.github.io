@@ -48,7 +48,7 @@ button {
 		var resultElement = document.getElementById('getResult1');
   resultElement.innerHTML = '';
   
-  axios.get('https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=410505&date=05-05-2021')
+  axios.get('https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=363&date=06-05-2021')
     .then(function (response) {
       resultElement.innerHTML = generateSuccessHTMLOutput(response);
     })
